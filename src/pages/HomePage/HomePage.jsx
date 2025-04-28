@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { API_URL } from "../../constants";
 import { QuestionCardList } from "../../components/QuestionCardList";
 import Loader from "../../components/Loader/Loader";
@@ -6,9 +6,10 @@ import { useFetch } from "../../hooks/useFetch";
 import cls from "./HomePage.module.css";
 import { SearchInput } from "../../components/SearchInput";
 
-const HomePage = () => {
+export const HomePage = () => {
   const [questions, setQuestions] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const [sortSelectValue, setsortSelectValue] = useState("");
 
   const [getQuestions, isLoading, error] = useFetch(async (url) => {
     const response = await fetch(`${API_URL}/${url}`);
@@ -18,27 +19,47 @@ const HomePage = () => {
 
     return questions;
   });
+  
+  const cards = useMemo(() =>{
+    return questions.filter((c) => c.question.toLowerCase()
+    .includes(searchValue.trim().toLowerCase()))
+  }, [questions, searchValue]);
 
   useEffect(() => {
-    getQuestions("react");
-  }, []);
+    getQuestions(`react?${sortSelectValue}`);
+  }, [sortSelectValue]);
 
   const onSearchChangeHandler = (e) => {
     console.log(e.target.value);
     setSearchValue(e.target.value);
   };
 
+  const onSortSelectChangeHandler = (e) => {
+    setsortSelectValue(e.target.value);
+  }
+
   return (
     <>
       <div className={cls.controlsConatiner}>
         <SearchInput value={searchValue} onChange={onSearchChangeHandler} />
+
+        <select value={sortSelectValue} className={cls.select} onChange={onSortSelectChangeHandler}>
+          <option value="">sort by</option>
+          <hr />
+          <option value="_sort=level">level ASC</option> 
+          <option value="_sort=-level">level DESC</option>
+          <option value="_sort=completed">completed ASC</option> 
+          <option value="_sort=-completed">completed DESC</option>
+        </select>
       </div>
 
       {isLoading && <Loader />}
       {error && <p>{error}</p>}
-      <QuestionCardList cards={questions} />
+      {cards.length === 0 && <p className={cls.noCardsInfo}>No cards...</p>}
+
+      <QuestionCardList cards={cards} />
     </>
   );
 };
 
-export default HomePage;
+
