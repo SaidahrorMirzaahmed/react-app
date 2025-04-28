@@ -35,6 +35,7 @@ export default [
           tabWidth: 2,
         },
       ],
+      "react-hooks/exhaustive-deps" : "off"
     },
   },
 ];
