@@ -25,6 +25,22 @@
     flex-grow: 1;
 }
 
+.paginationButtons {
+    width: fit-content;
+    max-width: 800px;
+    padding: 10px 10px 25px 10px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.currentPage {
+    background-color: lightcoral;
+}
+
 @media(max-width: 576px) {
     .controlsContainer {
         flex-wrap: wrap-reverse;
