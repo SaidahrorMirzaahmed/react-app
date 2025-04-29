@@ -16,6 +16,8 @@ export const HomePage = () => {
   const [searchParams, setSearchParams] = useState(`?_page=1&_per_page=${DEFAULT_PER_PAGE}`);
   const [searchValue, setSearchValue] = useState("");
   const [sortSelectValue, setSortSelectValue] = useState("");
+  const [countSelectValue, setCountSelectValue] = useState("");
+
   
   const controlsConatinerRef = useRef();
 
@@ -54,12 +56,17 @@ export const HomePage = () => {
   const onSortSelectChangeHandler = (e) => {
     setSortSelectValue(e.target.value);
 
-    setSearchParams(`?_page=1&_per_page=${DEFAULT_PER_PAGE}&${e.target.value}`) 
+    setSearchParams(`?_page=1&_per_page=${countSelectValue}&${e.target.value}`) 
+  }
+
+  const onCountSelectChangeHandler = (e) => {
+    setCountSelectValue(e.target.value);
+    setSearchParams(`?_page=${currentPage}&_per_page=${e.target.value}&${e.target.value}`)
   }
 
   const paginationHandler = (e) => {
     if(e.target.tagName === "BUTTON") {
-      setSearchParams(`?_page=${e.target.textContent}&_per_page=${DEFAULT_PER_PAGE}&${sortSelectValue}`)
+      setSearchParams(`?_page=${e.target.textContent}&_per_page=${countSelectValue}&${sortSelectValue}`)
       setCurrentPage(e.target.textContent);
       controlsConatinerRef.current.scrollIntoView({behavior: "smooth"});
     }
@@ -84,6 +91,15 @@ export const HomePage = () => {
           <option value="_sort=completed">completed ASC</option> 
           <option value="_sort=-completed">completed DESC</option>
         </select>
+
+        <select value={countSelectValue} className={cls.select} onChange={onCountSelectChangeHandler}>
+          <option disabled>count</option>
+          <hr />
+          <option value="10">10</option> 
+          <option value="20">20</option>
+          <option value="50">50</option> 
+          <option value="100">100</option>
+        </select>
       </div>
 
       {isLoading && <Loader />}
@@ -93,24 +109,17 @@ export const HomePage = () => {
 
       {cards.length === 0 ? <p className={cls.noCardsInfo}>No cards...</p> : 
       <div className={cls.paginationButtons} onClick={paginationHandler}>
-      {
-        pagination.map((value) => {
-          console.log(currentPage);
-          console.log(value);
-          console.log(value === currentPage);
-          
-          
-          if(value == currentPage){
-            return <Button key={value} isActive={true}>{value}</Button>
-          }
-          return <Button key={value}>{value}</Button>
-        })
-      }
-    </div>}
-
-      
-      
-      
+        {
+          pagination.length != 1
+          && pagination.map((value) =>
+            value === currentPage ? (
+              <Button key={value} isActive={true}>{value}</Button>
+            ) : (
+              <Button key={value}>{value}</Button>
+            )
+          )
+        }
+      </div>} 
     </>
   );
 };
