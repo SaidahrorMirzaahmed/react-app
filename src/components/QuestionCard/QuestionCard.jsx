@@ -3,7 +3,7 @@ import { Button } from "../Button";
 import cls from "./QuestionCard.module.css";
 import { Badge } from "../Badge";
 
-const QuestionCard = ({ card }) => {
+export const QuestionCard = ({ card }) => {
   const navigate = useNavigate();
   const levelVariant = card.level == 1 ? "primary" : card.level == 2 ? "warning" : "alert";
   const completedVariant = card.completed ? "success" : "primary";
@@ -27,5 +27,3 @@ const QuestionCard = ({ card }) => {
     </div>
   );
 };
-
-export default QuestionCard;
