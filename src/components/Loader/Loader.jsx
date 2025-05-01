@@ -1,6 +1,7 @@
 import cls from "./Loader.module.css";
+import scls from "./SmallLoader.module.css";
 
-const Loader = () => {
+export const Loader = () => {
   return (
     <div className={cls.backdrop}>
       <span class={cls.loader}></span>
@@ -8,4 +9,6 @@ const Loader = () => {
   );
 };
 
-export default Loader;
+export const SmallLoader = () => {
+  return <span class={scls.loader}></span>;
+};
