@@ -1,12 +1,47 @@
+import { useActionState } from "react";
 import { Button } from "../../components/Button";
 import cls from "./AddQuestionPage.module.css";
+import { Delay } from "../../helpers/delayFn";
+import { toast } from "react-toastify";
+import { API_URL } from "../../constants";
+
+const createCardAction = async (_prevState, formData) => {
+  try {
+    await Delay();
+
+    const newQuestion = Object.fromEntries(formData);
+    var resources = newQuestion.resources.trim();
+    const isClearForm = newQuestion.clearForm;
+
+    const response = await fetch(`${API_URL}/react`, {
+      method: "POST",
+      body: JSON.stringify({
+        question: newQuestion.question,
+        answer: newQuestion.answer,
+        description: newQuestion.description,
+        resources: resources.length ? resources.split(",") : [],
+        level: Number(newQuestion.level),
+        completed: false,
+      }),
+    });
+
+    var question = response.json();
+    toast.success("New question added");
+
+    return isClearForm ? {} : question;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
 
 export const AddQuestionPage = () => {
+  const [formState, formAction, isPending] = useActionState(createCardAction, { clearForm: false });
+
   return (
     <>
       <h1 className={cls.formTitle}>Add new question</h1>
       <div className={cls.formContainer}>
-        <form className={cls.form}>
+        <form className={cls.form} action={formAction}>
           <div className={cls.formControl}>
             <label htmlFor="questionField">Question: </label>
             <textarea
@@ -16,7 +51,7 @@ export const AddQuestionPage = () => {
               rows="2"
               required
               placeholder="Enter Question"
-              defaultValue={"defaultValue"}
+              defaultValue={formState.question}
             ></textarea>
           </div>
           <div className={cls.formControl}>
@@ -28,7 +63,7 @@ export const AddQuestionPage = () => {
               rows="2"
               required
               placeholder="Enter a short answer"
-              defaultValue={"defaultValue"}
+              defaultValue={formState.answer}
             ></textarea>
           </div>
           <div className={cls.formControl}>
@@ -40,7 +75,7 @@ export const AddQuestionPage = () => {
               rows="5"
               required
               placeholder="Enter a full description"
-              defaultValue={"defaultValue"}
+              defaultValue={formState.description}
             ></textarea>
           </div>
           <div className={cls.formControl}>
@@ -52,12 +87,12 @@ export const AddQuestionPage = () => {
               rows="5"
               required
               placeholder="Please enter resourses seperated by commas"
-              defaultValue={"defaultValue"}
+              defaultValue={formState.resources}
             ></textarea>
           </div>
           <div className={cls.formControl}>
             <label htmlFor="levelField">Level: </label>
-            <select name="level" id="levelField" defaultValue={"1"}>
+            <select name="level" id="levelField" defaultValue={formState.level}>
               <option disabled>Question level</option>
               <option value={"1"}>1- easy</option>
               <option value={"2"}>2- medium</option>
@@ -66,10 +101,16 @@ export const AddQuestionPage = () => {
           </div>
 
           <label htmlFor="clearFormField" className={cls.clearFormControl}>
-            <input type="checkbox" className={cls.checkbox} name="clearForm" id="clearFormField" />
+            <input
+              type="checkbox"
+              className={cls.checkbox}
+              name="clearForm"
+              id="clearFormField"
+              defaultChecked={formState.clearForm}
+            />
             <span>clear form after submitting</span>
           </label>
-          <Button>Add Question</Button>
+          <Button isDisabled={isPending}>Add Question</Button>
         </form>
       </div>
     </>

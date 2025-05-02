@@ -564,6 +564,29 @@
       "resources": [],
       "level": 1,
       "completed": false
+    },
+    {
+      "id": "b429",
+      "question": "What is VCS?",
+      "answer": "App that controls versions.",
+      "description": "GitHub, GitLab",
+      "resources": [
+        "https://github.com"
+      ],
+      "level": 2,
+      "completed": false
+    },
+    {
+      "id": "ad50",
+      "question": "What is .NET?",
+      "answer": "Open-source cross-platform ecosystem.",
+      "description": ".NET is a free, open-source, cross-platform developer platform created by Microsoft for building various applications.\n",
+      "resources": [
+        "https://dotnet.microsoft.com",
+        " https://"
+      ],
+      "level": 3,
+      "completed": false
     }
   ]
 }
