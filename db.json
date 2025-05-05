@@ -587,6 +587,15 @@
       ],
       "level": 3,
       "completed": false
+    },
+    {
+      "id": "9c34",
+      "question": "What is purpose of TypeScript?",
+      "answer": "To be a type-based JavaScript.",
+      "description": "To be a type-based JavaScript.",
+      "resources": [],
+      "level": 1,
+      "completed": false
     }
   ]
 }
