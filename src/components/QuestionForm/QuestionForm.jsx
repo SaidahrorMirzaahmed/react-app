@@ -6,6 +6,7 @@ export const QuestionForm = ({ formState, isPending, formAction, text }) => {
 
   return (
     <form className={cls.form} action={formAction}>
+      <input type="text" name="questionId" defaultValue={formState.id} hidden />
       <div className={cls.formControl}>
         <label htmlFor="questionField">Question: </label>
         <textarea
