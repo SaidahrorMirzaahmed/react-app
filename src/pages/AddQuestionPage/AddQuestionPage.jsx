@@ -25,12 +25,17 @@ const createCardAction = async (_prevState, formData) => {
       }),
     });
 
+    if (response.status === 404) {
+      throw new Error(response.statusText);
+    }
+
     var question = response.json();
     toast.success("New question added");
 
     return isClearForm ? {} : question;
   } catch (error) {
     toast.error(error.message);
+    return {};
   }
 };
 
