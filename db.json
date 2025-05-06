@@ -37,17 +37,6 @@
       "completed": false
     },
     {
-      "question": "Как создать компонент в React?🍩",
-      "answer": "Компонент можно создать как функцию или класс.",
-      "description": "Функциональные компоненты — это функции, принимающие `props` и возвращающие JSX. Классовые компоненты — это классы, наследуемые от `React.Component`, с методом `render`.",
-      "resources": [
-        "https://react.dev/learn/your-first-component"
-      ],
-      "level": 1,
-      "completed": false,
-      "id": "4"
-    },
-    {
       "id": "5",
       "question": "Что такое props в React?",
       "answer": "Props — это входные параметры компонентов.",
@@ -572,27 +561,6 @@
         "https://github.com"
       ],
       "level": 2,
-      "completed": false
-    },
-    {
-      "id": "ad50",
-      "question": "What is .NET?",
-      "answer": "Open-source cross-platform ecosystem.",
-      "description": ".NET is a free, open-source, cross-platform developer platform created by Microsoft for building various applications.\n",
-      "resources": [
-        "https://dotnet.microsoft.com",
-        " https://"
-      ],
-      "level": 3,
-      "completed": false
-    },
-    {
-      "id": "9c34",
-      "question": "What is purpose of TypeScript?",
-      "answer": "To be a type-based JavaScript.",
-      "description": "To be a type-based JavaScript.",
-      "resources": [],
-      "level": 1,
       "completed": false
     }
   ]
