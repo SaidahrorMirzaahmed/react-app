@@ -1,10 +1,10 @@
 :root {
 
-  --main-bg-color : #23272f;
-  --text-color : #fff;
+  --main-bg-color: #23272f;
+  --text-color: #fff;
 
-  --btn-bg-color : #383b3f;
-  --btn-text-color : #fff;
+  --btn-bg-color: #383b3f;
+  --btn-text-color: #fff;
 
   --card-bg-color: #343a46;
   --green-color: #219679;
@@ -22,14 +22,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
- 
+
 a {
-  color: inherit ;
+  color: inherit;
 }
 
 
@@ -38,16 +38,27 @@ body {
   background-color: var(--main-bg-color);
 }
 
+.darkLayout {
+  --main-bg-color: #23272f;
+  --text-color: #fff;
+
+  --btn-bg-color: #16444f;
+  --btn-text-color: #57C4DC;
+
+
+  --card-bg-color: #343a46;
+  --green-color: #219679;
+}
 
 
 @media (prefers-color-scheme: light) {
   :root {
-    --main-bg-color : white;
-    --text-color : #000;
+    --main-bg-color: white;
+    --text-color: #000;
 
-    --btn-bg-color : #383b3f;
-    --btn-text-color : #fff;
-    
+    --btn-bg-color: #383b3f;
+    --btn-text-color: #fff;
+
     --card-bg-color: #ebedf0;
     --green-color: #219679;
   }
@@ -55,11 +66,10 @@ body {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --main-bg-color : #23272f
-    --text-color : #fff;
+    --main-bg-color: #23272f --text-color: #fff;
 
-    --btn-bg-color : #16444f;
-    --btn-text-color : #57C4DC;
+    --btn-bg-color: #16444f;
+    --btn-text-color: #57C4DC;
 
 
     --card-bg-color: #343a46;

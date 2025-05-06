@@ -8,6 +8,7 @@ import { EditQuestionPageLazy } from "./pages/EditQuestionPage";
 import { AuthProvider } from "./auth/AuthProvider.jsx";
 import { useAuth } from "./hooks/useAuth.js";
 import { ForbiddenPage } from "./pages/ForbiddenPage/ForbiddenPage.jsx";
+import { ThemeProvider } from "./theme/ThemeProvider.jsx";
 
 const ProtectedRoutes = () => {
   const { isAuth } = useAuth();
@@ -20,24 +21,26 @@ const ProtectedRoutes = () => {
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<MainLayout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/forbidden" element={<ForbiddenPage />} />
-            <Route path="/question/:id" element={<QuestionPage />} />
+    <ThemeProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/forbidden" element={<ForbiddenPage />} />
+              <Route path="/question/:id" element={<QuestionPage />} />
 
-            <Route element={<ProtectedRoutes />}>
-              <Route path="/addquestion" element={<AddQuestionPageLazy />} />
-              <Route path="/editquestion/:id" element={<EditQuestionPageLazy />} />
+              <Route element={<ProtectedRoutes />}>
+                <Route path="/addquestion" element={<AddQuestionPageLazy />} />
+                <Route path="/editquestion/:id" element={<EditQuestionPageLazy />} />
+              </Route>
+
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
-
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 
